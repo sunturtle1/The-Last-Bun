@@ -2,6 +2,7 @@ extends CharacterBody2D
 @export var speed: float = 500.0
 @onready var item_label = $".."/CanvasLayer/CurrentItemLabel
 @onready var anim = $AnimatedSprite2D
+@onready var oven = $".."
 var CurrentItem = ""
 
 func _process(delta: float) -> void:
@@ -21,5 +22,14 @@ func _process(delta: float) -> void:
 	
 	if move_direction != Vector2.ZERO:
 		anim.play("default")
+		anim.flip_h = move_direction.x < 0
 	else:
 		anim.play("idle")
+		
+	#if Input.is_action_just_pressed("take_patty"):
+		
+func update_item_display():
+	if CurrentItem == "":
+		item_label.text = "Hand: Empty"
+	else:
+		item_label.text = "Hand: %s" % CurrentItem

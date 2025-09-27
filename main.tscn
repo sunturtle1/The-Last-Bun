@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blonexlb3jhe6"]
+[gd_scene load_steps=11 format=3 uid="uid://blonexlb3jhe6"]
 
 [ext_resource type="Script" uid="uid://bgti8ufkyuhp5" path="res://player.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b1g7srklw345n" path="res://images/standing.png" id="2_7mycd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bi10gpgh4ocyc" path="res://oven.gd" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dxs4nssfgn7fk" path="res://patty.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bum4u4v6ht7tn" path="res://images/lepes 2 final.png" id="4_5vw27"]
+[ext_resource type="Texture2D" uid="uid://c1o3fangcpdmf" path="res://images/grillrács.png" id="6_272bh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h2yge"]
 animations = [{
@@ -54,16 +55,24 @@ position = Vector2(578, 272)
 shape = SubResource("RectangleShape2D_h2yge")
 
 [node name="oven" type="StaticBody2D" parent="."]
-position = Vector2(539, 21)
+position = Vector2(542, 15)
 script = ExtResource("3_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="oven"]
-position = Vector2(38.5, 36)
+position = Vector2(41.5, 62)
 shape = SubResource("RectangleShape2D_0xm2m")
 
 [node name="Timer" type="Timer" parent="oven"]
-wait_time = 10.0
+wait_time = 0.5
 one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="oven"]
+position = Vector2(40.000004, 43)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("6_272bh")
+
+[node name="Area2D" type="Area2D" parent="oven"]
+position = Vector2(3, 26)
 
 [node name="patty" parent="." instance=ExtResource("4_1bvp3")]
 position = Vector2(-92, -84)
