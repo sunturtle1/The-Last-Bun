@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxs4nssfgn7fk"]
+
+[ext_resource type="Texture2D" uid="uid://dmgeiyqtf2hfn" path="res://images/husi.png" id="1_m14o5"]
+
+[node name="patty" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.365, 0.365)
+texture = ExtResource("1_m14o5")
+region_enabled = true
+region_rect = Rect2(373.48, 210.84, 108.899994, 105.26999)

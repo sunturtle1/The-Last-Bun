@@ -1,8 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://blonexlb3jhe6"]
+[gd_scene load_steps=10 format=3 uid="uid://blonexlb3jhe6"]
 
 [ext_resource type="Script" uid="uid://bgti8ufkyuhp5" path="res://player.gd" id="1_0xm2m"]
-[ext_resource type="Texture2D" uid="uid://k5h20fk4703c" path="res://icon.svg" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://b1g7srklw345n" path="res://images/standing.png" id="2_7mycd"]
+[ext_resource type="Texture2D" uid="uid://bh5elhlhh3l7g" path="res://images/lepes 1 final.png" id="3_272bh"]
 [ext_resource type="Script" uid="uid://bi10gpgh4ocyc" path="res://oven.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dxs4nssfgn7fk" path="res://patty.tscn" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bum4u4v6ht7tn" path="res://images/lepes 2 final.png" id="4_5vw27"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2yge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7mycd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_272bh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5vw27")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7mycd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(121, 117)
@@ -15,9 +43,11 @@ size = Vector2(97, 92)
 [node name="player" type="CharacterBody2D" parent="."]
 script = ExtResource("1_0xm2m")
 
-[node name="Sprite2D" type="Sprite2D" parent="player"]
-position = Vector2(578, 272)
-texture = ExtResource("2_h2yge")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player"]
+position = Vector2(576.00006, 292)
+scale = Vector2(0.24, 0.24)
+sprite_frames = SubResource("SpriteFrames_h2yge")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 position = Vector2(578, 272)
@@ -30,3 +60,20 @@ script = ExtResource("3_h2yge")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="oven"]
 position = Vector2(38.5, 36)
 shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="Timer" type="Timer" parent="oven"]
+wait_time = 10.0
+one_shot = true
+
+[node name="patty" parent="." instance=ExtResource("4_1bvp3")]
+position = Vector2(-92, -84)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CurrentItemLabel" type="Label" parent="CanvasLayer"]
+offset_left = 40.0
+offset_top = 14.0
+offset_right = 80.0
+offset_bottom = 37.0
+
+[connection signal="timeout" from="oven/Timer" to="oven" method="_on_timer_timeout"]
