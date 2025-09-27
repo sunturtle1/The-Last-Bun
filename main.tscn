@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://blonexlb3jhe6"]
+
+[ext_resource type="Script" uid="uid://bgti8ufkyuhp5" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://k5h20fk4703c" path="res://icon.svg" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://bi10gpgh4ocyc" path="res://oven.gd" id="3_h2yge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(121, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(97, 92)
+
+[node name="main" type="Node2D"]
+
+[node name="player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_0xm2m")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+position = Vector2(578, 272)
+texture = ExtResource("2_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(578, 272)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="oven" type="StaticBody2D" parent="."]
+position = Vector2(539, 21)
+script = ExtResource("3_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="oven"]
+position = Vector2(38.5, 36)
+shape = SubResource("RectangleShape2D_0xm2m")
