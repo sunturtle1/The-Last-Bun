@@ -2,8 +2,8 @@ extends CharacterBody2D
 @export var speed: float = 500.0
 @onready var item_label = $".."/CanvasLayer/CurrentItemLabel
 @onready var anim = $AnimatedSprite2D
-@onready var oven = $".."
-var CurrentItem = ""
+@onready var oven = $".."/oven
+@export var CurrentItem = ""
 
 func _process(delta: float) -> void:
 	var move_direction := Vector2.ZERO
@@ -26,7 +26,9 @@ func _process(delta: float) -> void:
 	else:
 		anim.play("idle")
 		
-	#if Input.is_action_just_pressed("take_patty"):
+	if Input.is_action_just_pressed("take_patty"):
+		oven.take_patty()
+
 		
 func update_item_display():
 	if CurrentItem == "":

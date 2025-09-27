@@ -1,27 +1,54 @@
 extends StaticBody2D
-@onready var patty = $".."/patty
+
 @onready var timer = $Timer
 @onready var player = $".."/player
-var pattyscene = preload("res://patty.tscn")
-var IsPattyOnOven = false
+
+var patty_scene = preload("res://patty.tscn")
+var current_patty: Node2D = null
+var is_patty_on_oven = false
+var is_patty_cooked = false   
+
+# load textures
+var raw_texture = preload("res://images/nyershusifixed.png")
+
+var cooked_texture = preload("res://images/husifixed.png")
+
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
 		place_patty()
-	pass
 
 func place_patty():
-	if IsPattyOnOven == false:
-		var patty = pattyscene.instantiate()
-		add_child(patty)
-		patty.position = Vector2(0, 0)
+	if not is_patty_on_oven:
+		current_patty = patty_scene.instantiate()
+		add_child(current_patty)
+		current_patty.position = Vector2(0, 0)
+
+		# set to raw
+		var sprite = current_patty.get_node("Sprite2D")
+		sprite.texture = raw_texture
+
 		timer.start()
-		IsPattyOnOven = true
+		is_patty_on_oven = true
+		is_patty_cooked = false
 	else: 
-		print("there is an another patty on the grill")
+		print("there is already another patty on the grill")
 
 func _on_timer_timeout() -> void:
-	print("kesz a hus")
-	
+	if current_patty:
+		var sprite = current_patty.get_node("Sprite2D")
+		sprite.texture = cooked_texture
+		is_patty_cooked = true
+		print("Patty is now cooked!")
+
 func take_patty():
-	if IsPattyOnOven == true and player.CurrentItem == "":
-		patty.queue_free()
+	if is_patty_on_oven and current_patty and player.CurrentItem == "":
+		if is_patty_cooked:
+			player.CurrentItem = "Cooked Patty"
+		else:
+			player.CurrentItem = "Raw Patty"
+
+		player.update_item_display()
+		current_patty.queue_free()
+		current_patty = null
+		is_patty_on_oven = false
+		is_patty_cooked = false
