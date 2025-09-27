@@ -7,18 +7,19 @@ var patty_scene = preload("res://patty.tscn")
 var current_patty: Node2D = null
 var is_patty_on_oven = false
 var is_patty_cooked = false   
-
+var is_player_near_oven = false
 # load textures
 var raw_texture = preload("res://images/nyershusifixed.png")
-
 var cooked_texture = preload("res://images/husifixed.png")
+
+
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
-		place_patty()
+			place_patty()
 
 func place_patty():
-	if not is_patty_on_oven:
+	if not is_patty_on_oven and is_player_near_oven:
 		current_patty = patty_scene.instantiate()
 		add_child(current_patty)
 		current_patty.position = Vector2(0, 0)
@@ -52,3 +53,13 @@ func take_patty():
 		current_patty = null
 		is_patty_on_oven = false
 		is_patty_cooked = false
+
+
+func _on_interaction_area_body_entered(body: Node2D) -> void:
+	if body.name == "player":
+		is_player_near_oven = true
+		
+
+func _on_interaction_area_body_exited(body: Node2D) -> void:
+	if body.name == "player":
+		is_player_near_oven = false
