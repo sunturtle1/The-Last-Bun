@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=4 uid="uid://blonexlb3jhe6"]
+[gd_scene load_steps=13 format=4 uid="uid://blonexlb3jhe6"]
 
 [ext_resource type="PackedScene" uid="uid://cvm5028ryhlx8" path="res://player.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://daks8wduxvr6i" path="res://oven.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dxs4nssfgn7fk" path="res://patty.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dmgeiyqtf2hfn" path="res://images/husi.png" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://ci3dg3g70lje7" path="res://images/Sprite-0003.png" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://bbmbf2xnlgetm" path="res://counter.gd" id="6_5vw27"]
 [ext_resource type="Texture2D" uid="uid://dxgmf2fe65aau" path="res://images/counter.png" id="6_7mycd"]
+[ext_resource type="Texture2D" uid="uid://dvxhmpraoiso1" path="res://images/hutofixed.png" id="7_272bh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("5_lquwl")
@@ -80,6 +82,9 @@ sources/0 = SubResource("TileSetAtlasSource_7mycd")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
+size = Vector2(30, 15.333336)
+
 [node name="main" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_h2yge")]
@@ -96,13 +101,25 @@ position = Vector2(-16.75, -14.75)
 scale = Vector2(0.70353985, 0.7242991)
 texture = ExtResource("4_lquwl")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 70.0
+offset_top = 28.0
+offset_right = 110.0
+offset_bottom = 68.0
 
-[node name="CurrentItemLabel" type="Label" parent="CanvasLayer"]
-offset_left = 40.0
-offset_top = 14.0
-offset_right = 80.0
-offset_bottom = 37.0
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/CanvasLayer"]
+offset_left = 70.0
+offset_top = 28.0
+offset_right = 110.0
+offset_bottom = 68.0
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -2
@@ -112,12 +129,29 @@ tile_set = SubResource("TileSet_272bh")
 [node name="Counter" type="StaticBody2D" parent="."]
 position = Vector2(610, 74)
 scale = Vector2(3, 3)
-metadata/_edit_group_ = true
+script = ExtResource("6_5vw27")
 
 [node name="Sprite2D" type="Sprite2D" parent="Counter"]
 texture = ExtResource("6_7mycd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Counter"]
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="Area2D" type="Area2D" parent="Counter"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter/Area2D"]
+position = Vector2(1, 20.333332)
+shape = SubResource("RectangleShape2D_kek77")
+
+[node name="Fridge" type="StaticBody2D" parent="."]
+position = Vector2(418.00003, 74)
+scale = Vector2(3, 3)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Fridge"]
+texture = ExtResource("7_272bh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fridge"]
 shape = SubResource("RectangleShape2D_272bh")
 
 [node name="Counter2" type="StaticBody2D" parent="."]
@@ -141,3 +175,7 @@ texture = ExtResource("6_7mycd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Counter3"]
 shape = SubResource("RectangleShape2D_272bh")
+
+[connection signal="body_entered" from="Counter/Area2D" to="Counter" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Counter/Area2D" to="player" method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Counter/Area2D" to="Counter" method="_on_area_2d_body_exited"]

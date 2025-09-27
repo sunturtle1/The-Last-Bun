@@ -10,7 +10,7 @@ size = Vector2(32, 32)
 size = Vector2(37, 14)
 
 [node name="oven" type="StaticBody2D"]
-position = Vector2(542, 75)
+position = Vector2(494, 71)
 script = ExtResource("1_my181")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,6 +31,9 @@ position = Vector2(-21, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(-2.5, -11)
 shape = SubResource("RectangleShape2D_my181")
+
+[node name="PattySpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-15, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

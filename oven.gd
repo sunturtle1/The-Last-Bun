@@ -2,7 +2,7 @@ extends StaticBody2D
 
 @onready var timer = $Timer
 @onready var player = $".."/player
-
+@onready var spawn_point = $PattySpawnPoint
 var patty_scene = preload("res://patty.tscn")
 var current_patty: Node2D = null
 var is_patty_on_oven = false
@@ -22,7 +22,7 @@ func place_patty():
 	if not is_patty_on_oven and is_player_near_oven:
 		current_patty = patty_scene.instantiate()
 		add_child(current_patty)
-		current_patty.position = Vector2(0, 0)
+		current_patty.global_position = spawn_point.global_position
 
 		# set to raw
 		var sprite = current_patty.get_node("Sprite2D")

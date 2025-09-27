@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @export var speed: float = 500.0
-@onready var item_label = $".."/CanvasLayer/CurrentItemLabel
+@onready var item_label = $".."/Control/CanvasLayer/RichTextLabel
 @onready var anim = $AnimatedSprite2D
 @onready var oven = $".."/oven
 @export var CurrentItem = ""
@@ -34,4 +34,4 @@ func update_item_display():
 	if CurrentItem == "":
 		item_label.text = "Hand: Empty"
 	else:
-		item_label.text = "Hand: %s" % CurrentItem
+		item_label.text = "[bgcolor=black][color=white]  Hand: %s  [/color][/bgcolor]" % CurrentItem
