@@ -3,7 +3,9 @@ extends CharacterBody2D
 @onready var timer = $Timer
 @onready var calm = $Sprite2D
 @onready var angry = $Sprite2D2
-@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_player: AudioStreamPlayer2D = $deathsound
+@onready var nyamnyam = $nyamnyam
+@onready var meghaltal = $".."/Control/Meghaltal
 var is_player_in_range = false
 func _ready():
 	calm.visible = true
@@ -18,7 +20,7 @@ func _process(delta: float) -> void:
 	if timer.is_stopped():
 		calm.visible = true
 		angry.visible = false
-	elif time_remaining <= 20 and time_remaining > 0:
+	elif time_remaining <= 10 and time_remaining > 0:
 		calm.visible = false
 		angry.visible = true
 	else:
@@ -28,6 +30,7 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	audio_player.play()
+	meghaltal.visible = true
 	
 	
 func take_burger():
@@ -35,6 +38,7 @@ func take_burger():
 		player.CurrentPlayerItem = ""
 		player.update_item_display()
 		timer.start()
+		nyamnyam.play()
 	
 
 
