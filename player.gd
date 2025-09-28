@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var anim = $AnimatedSprite2D
 @onready var oven = $".."/oven
 @onready var counter = $".."/Counter
+@onready var trashcan = $".."/Trashcan
 @export var CurrentPlayerItem = "Raw Patty"
 
 func _ready() -> void:
@@ -22,13 +23,24 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		if oven.is_player_near_oven and CurrentPlayerItem == "Raw Patty":
 			oven.place_patty()
+			anim.play("placing")
 			CurrentPlayerItem = ""
 			update_item_display()
 		elif oven.is_player_near_oven and CurrentPlayerItem == "":
 			oven.take_patty()
+			anim.play("placing")
 			update_item_display()
 		elif counter.is_player_in_range and CurrentPlayerItem != "":
 			counter.place_item(CurrentPlayerItem)
+			anim.play("placing")
+			update_item_display()
+		elif counter.is_player_in_range and CurrentPlayerItem == "":
+			counter.take_item()
+			anim.play("placing")
+			update_item_display()
+		elif trashcan.is_player_in_range:
+			trashcan.trash_item()
+			anim.play("placing")
 			update_item_display()
 	move_direction = move_direction.normalized()
 	velocity = move_direction * speed

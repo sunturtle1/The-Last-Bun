@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://blonexlb3jhe6"]
+[gd_scene load_steps=16 format=4 uid="uid://blonexlb3jhe6"]
 
 [ext_resource type="PackedScene" uid="uid://cvm5028ryhlx8" path="res://player.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://daks8wduxvr6i" path="res://oven.tscn" id="2_1bvp3"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dmgeiyqtf2hfn" path="res://images/husi.png" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://ci3dg3g70lje7" path="res://images/Sprite-0003.png" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://3omgvghxwgss" path="res://counter.tscn" id="6_5vw27"]
-[ext_resource type="Texture2D" uid="uid://dxgmf2fe65aau" path="res://images/counter.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvxhmpraoiso1" path="res://images/hutofixed.png" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://du6tu30sahsyd" path="res://sounds/gametheme.ogg" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://balepode0duec" path="res://trashcan.gd" id="9_4c57u"]
+[ext_resource type="Texture2D" uid="uid://b77unm3lkdlls" path="res://images/kuka.png" id="10_efxa6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("5_lquwl")
@@ -82,12 +84,19 @@ sources/0 = SubResource("TileSetAtlasSource_7mycd")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
 size = Vector2(32, 32)
 
-[node name="main" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
+size = Vector2(61, 82)
 
-[node name="player" parent="." instance=ExtResource("1_h2yge")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycdy4"]
+size = Vector2(72, 22)
+
+[node name="main" type="Node2D"]
+position = Vector2(1, 0)
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("1_h2yge")]
 
 [node name="oven" parent="." instance=ExtResource("2_1bvp3")]
-position = Vector2(583, 74)
+position = Vector2(514, 76)
 scale = Vector2(3, 3)
 
 [node name="patty" parent="." instance=ExtResource("4_1bvp3")]
@@ -124,6 +133,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAI
 tile_set = SubResource("TileSet_272bh")
 
 [node name="Counter" parent="." instance=ExtResource("6_5vw27")]
+position = Vector2(479, -319)
 
 [node name="Fridge" type="StaticBody2D" parent="."]
 position = Vector2(418.00003, 74)
@@ -136,24 +146,29 @@ texture = ExtResource("7_272bh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fridge"]
 shape = SubResource("RectangleShape2D_272bh")
 
-[node name="Counter2" type="StaticBody2D" parent="."]
-position = Vector2(706, 74)
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_5vw27")
+volume_db = -25.0
+autoplay = true
+parameters/looping = true
+
+[node name="Trashcan" type="StaticBody2D" parent="."]
+position = Vector2(876, 69)
+script = ExtResource("9_4c57u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Trashcan"]
 scale = Vector2(3, 3)
-metadata/_edit_group_ = true
+texture = ExtResource("10_efxa6")
 
-[node name="Sprite2D" type="Sprite2D" parent="Counter2"]
-texture = ExtResource("6_7mycd")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trashcan"]
+position = Vector2(2.5, 5)
+shape = SubResource("RectangleShape2D_dg77c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter2"]
-shape = SubResource("RectangleShape2D_272bh")
+[node name="Area2D" type="Area2D" parent="Trashcan"]
 
-[node name="Counter3" type="StaticBody2D" parent="."]
-position = Vector2(802, 74)
-scale = Vector2(3, 3)
-metadata/_edit_group_ = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trashcan/Area2D"]
+position = Vector2(3, 54)
+shape = SubResource("RectangleShape2D_ycdy4")
 
-[node name="Sprite2D" type="Sprite2D" parent="Counter3"]
-texture = ExtResource("6_7mycd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter3"]
-shape = SubResource("RectangleShape2D_272bh")
+[connection signal="body_entered" from="Trashcan/Area2D" to="Trashcan" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Trashcan/Area2D" to="Trashcan" method="_on_area_2d_body_exited"]

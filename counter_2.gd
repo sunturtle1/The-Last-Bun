@@ -1,8 +1,8 @@
 extends StaticBody2D
 @onready var interaction_area = $Area2D
 @onready var player = $".."/player
-@onready var item_root = $ItemRoot
-@onready var item_sprite = $ItemRoot/ItemSprite
+@onready var item_root = $Marker2D
+@onready var item_sprite = $Marker2D/Sprite2D
 @export var current_item = ""
 var is_player_in_range = false
 var item_textures = {

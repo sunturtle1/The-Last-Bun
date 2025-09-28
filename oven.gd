@@ -15,9 +15,7 @@ var cooked_texture = preload("res://images/husifixed.png")
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("interact"):
-			place_patty()
-
+	pass
 func place_patty():
 	if not is_patty_on_oven and is_player_near_oven:
 		current_patty = patty_scene.instantiate()
