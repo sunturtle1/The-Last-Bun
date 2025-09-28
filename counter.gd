@@ -8,6 +8,11 @@ var is_player_in_range = false
 var item_textures = {
 	"Raw Patty": preload("res://images/nyershusi.png"),
 	"Cooked Patty": preload("res://images/husi.png"),
+	"Tomato": preload("res://images/paradise.png"),
+	"Onion": preload("res://images/hagyma.png"),
+	"Salad": preload("res://images/salata.png"),
+	"Bottom Bun": preload("res://images/bucialja.png"),
+	"Top Bun": preload("res://images/buciteto.png"),
 }
 
 # Called when the node enters the scene tree for the first time.

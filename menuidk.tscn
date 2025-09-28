@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://dep65lerkorb1"]
+
+[ext_resource type="Script" uid="uid://b644u2r1aucw8" path="res://menuidk.gd" id="1_vhw1y"]
+[ext_resource type="Texture2D" uid="uid://rkhsmrmabkrm" path="res://images/menuidk.png" id="2_4v1dt"]
+[ext_resource type="Texture2D" uid="uid://bmn2wpmp1rl1j" path="res://images/paradise.png" id="3_vhw1y"]
+[ext_resource type="Texture2D" uid="uid://dniocdte0kcbr" path="res://images/salata.png" id="4_ssyih"]
+[ext_resource type="Texture2D" uid="uid://t8yc26gpx42j" path="res://images/hagyma.png" id="5_cddun"]
+[ext_resource type="Texture2D" uid="uid://d02g051583v44" path="res://images/nyershusifixed.png" id="6_vhw1y"]
+[ext_resource type="Texture2D" uid="uid://dfmxccycuqw6p" path="res://images/bucialja.png" id="7_cddun"]
+[ext_resource type="Texture2D" uid="uid://dqrcqdibayfnw" path="res://images/buciteto.png" id="8_lk4gv"]
+
+[node name="menu" type="Node2D"]
+position = Vector2(178, 30)
+scale = Vector2(2, 2)
+script = ExtResource("1_vhw1y")
+
+[node name="Menuidk" type="Sprite2D" parent="."]
+position = Vector2(101, 20)
+scale = Vector2(0.276086, 0.266116)
+texture = ExtResource("2_4v1dt")
+
+[node name="ParadiseButton" type="TextureButton" parent="Menuidk"]
+offset_left = -151.0
+offset_top = -59.0
+offset_right = -102.0
+offset_bottom = -3.0
+texture_normal = ExtResource("3_vhw1y")
+ignore_texture_size = true
+
+[node name="SaladButton" type="TextureButton" parent="Menuidk"]
+offset_left = -80.0
+offset_top = -59.0
+offset_right = -29.0
+offset_bottom = -6.0
+texture_normal = ExtResource("4_ssyih")
+
+[node name="OnionButton" type="TextureButton" parent="Menuidk"]
+offset_left = -10.866168
+offset_top = -67.63968
+offset_right = 59.13383
+offset_bottom = 2.360321
+texture_normal = ExtResource("5_cddun")
+
+[node name="HusiButton" type="TextureButton" parent="Menuidk"]
+offset_left = 79.68532
+offset_top = -63.88192
+offset_right = 155.68532
+offset_bottom = 0.11808014
+texture_normal = ExtResource("6_vhw1y")
+
+[node name="Bucialjabutton" type="TextureButton" parent="Menuidk"]
+offset_left = -155.7486
+offset_top = -7.515517
+offset_right = -100.7486
+offset_bottom = 45.48448
+scale = Vector2(1.31, 1.31)
+texture_normal = ExtResource("7_cddun")
+
+[node name="bucitetejebutton" type="TextureButton" parent="Menuidk"]
+offset_left = -86.92943
+offset_top = 3.7577658
+offset_right = -29.929428
+offset_bottom = 56.757767
+scale = Vector2(1.115, 1.115)
+texture_normal = ExtResource("8_lk4gv")
+
+[node name="TextureButton7" type="TextureButton" parent="Menuidk"]
+offset_left = -12.0
+offset_top = 9.0
+offset_right = 56.0
+offset_bottom = 62.0
+
+[node name="TextureButton8" type="TextureButton" parent="Menuidk"]
+offset_left = 76.0
+offset_top = 8.0
+offset_right = 151.0
+offset_bottom = 60.0
+
+[connection signal="pressed" from="Menuidk/ParadiseButton" to="." method="_on_paradise_button_pressed"]
+[connection signal="pressed" from="Menuidk/SaladButton" to="." method="_on_salad_button_pressed"]
+[connection signal="pressed" from="Menuidk/OnionButton" to="." method="_on_onion_button_pressed"]
+[connection signal="pressed" from="Menuidk/HusiButton" to="." method="_on_husi_button_pressed"]
+[connection signal="pressed" from="Menuidk/Bucialjabutton" to="." method="_on_bucialjabutton_pressed"]
+[connection signal="pressed" from="Menuidk/bucitetejebutton" to="." method="_on_bucitetejebutton_pressed"]
