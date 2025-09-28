@@ -1,6 +1,7 @@
-extends Node
+extends StaticBody2D
 @onready var item_sprite = $Sprite2D
-@onready var interaction_area = $Area2D/CollisionShape2D
+@onready var interaction_area = $Area2D
+@onready var player = $".."/player
 @export var current_item = ""
 var is_player_in_range = false
 var item_textures = {
@@ -28,5 +29,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		is_player_in_range = false
 		
 func place_item(item_name):
-	if current_item == "":
+	if current_item == "" and is_player_in_range:
 		current_item = item_name
+		player.CurrentPlayerItem = ""

@@ -42,11 +42,11 @@ func _on_timer_timeout() -> void:
 		print("Patty is now cooked!")
 
 func take_patty():
-	if is_patty_on_oven and current_patty and player.CurrentItem == "":
+	if is_patty_on_oven and current_patty and player.CurrentPlayerItem == "":
 		if is_patty_cooked:
-			player.CurrentItem = "Cooked Patty"
+			player.CurrentPlayerItem = "Cooked Patty"
 		else:
-			player.CurrentItem = "Raw Patty"
+			player.CurrentPlayerItem = "Raw Patty"
 
 		player.update_item_display()
 		current_patty.queue_free()

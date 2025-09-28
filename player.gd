@@ -3,7 +3,11 @@ extends CharacterBody2D
 @onready var item_label = $".."/Control/CanvasLayer/RichTextLabel
 @onready var anim = $AnimatedSprite2D
 @onready var oven = $".."/oven
-@export var CurrentItem = ""
+@onready var counter = $".."/Counter
+@export var CurrentPlayerItem = "Raw Patty"
+
+func _ready() -> void:
+	update_item_display()
 
 func _process(delta: float) -> void:
 	var move_direction := Vector2.ZERO
@@ -15,7 +19,17 @@ func _process(delta: float) -> void:
 		move_direction.x = -1
 	if Input.is_action_pressed("right"):
 		move_direction.x = 1
-		
+	if Input.is_action_just_pressed("interact"):
+		if oven.is_player_near_oven and CurrentPlayerItem == "Raw Patty":
+			oven.place_patty()
+			CurrentPlayerItem = ""
+			update_item_display()
+		elif oven.is_player_near_oven and CurrentPlayerItem == "":
+			oven.take_patty()
+			update_item_display()
+		elif counter.is_player_in_range and CurrentPlayerItem != "":
+			counter.place_item(CurrentPlayerItem)
+			update_item_display()
 	move_direction = move_direction.normalized()
 	velocity = move_direction * speed
 	move_and_slide()
@@ -26,12 +40,11 @@ func _process(delta: float) -> void:
 	else:
 		anim.play("idle")
 		
-	if Input.is_action_just_pressed("take_patty"):
-		oven.take_patty()
+
 
 		
 func update_item_display():
-	if CurrentItem == "":
-		item_label.text = "Hand: Empty"
+	if CurrentPlayerItem == "":
+		item_label.text = "[bgcolor=black][color=white]  Hand: Empty  [/color][/bgcolor]"
 	else:
-		item_label.text = "[bgcolor=black][color=white]  Hand: %s  [/color][/bgcolor]" % CurrentItem
+		item_label.text = "[bgcolor=black][color=white]  Hand: %s  [/color][/bgcolor]" % CurrentPlayerItem
