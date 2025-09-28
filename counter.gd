@@ -6,11 +6,11 @@ extends StaticBody2D
 @export var current_item = ""
 var is_player_in_range = false
 var item_textures = {
-	"Raw Patty": preload("res://images/nyershusi.png"),
-	"Cooked Patty": preload("res://images/husi.png"),
+	"Raw Patty": preload("res://images/nyershusifixed.png"),
+	"Cooked Patty": preload("res://images/husifixed.png"),
 	"Tomato": preload("res://images/paradise.png"),
 	"Onion": preload("res://images/hagyma.png"),
-	"Salad": preload("res://images/salata.png"),
+	"Lettuce": preload("res://images/salata.png"),
 	"Bottom Bun": preload("res://images/bucialja.png"),
 	"Top Bun": preload("res://images/buciteto.png"),
 }

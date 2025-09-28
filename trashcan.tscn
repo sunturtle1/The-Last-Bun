@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv1pqqhwxlwqa"]
+
+[ext_resource type="Script" uid="uid://balepode0duec" path="res://trashcan.gd" id="1_mlex6"]
+[ext_resource type="Texture2D" uid="uid://b77unm3lkdlls" path="res://images/kuka.png" id="2_pjyj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
+size = Vector2(61, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycdy4"]
+size = Vector2(72, 22)
+
+[node name="Trashcan" type="StaticBody2D"]
+position = Vector2(876, 69)
+script = ExtResource("1_mlex6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_pjyj8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 5)
+shape = SubResource("RectangleShape2D_dg77c")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3, 54)
+shape = SubResource("RectangleShape2D_ycdy4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

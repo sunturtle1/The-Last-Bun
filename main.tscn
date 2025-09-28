@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://blonexlb3jhe6"]
+[gd_scene load_steps=17 format=4 uid="uid://blonexlb3jhe6"]
 
 [ext_resource type="PackedScene" uid="uid://cvm5028ryhlx8" path="res://player.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://daks8wduxvr6i" path="res://oven.tscn" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://ci3dg3g70lje7" path="res://images/Sprite-0003.png" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://3omgvghxwgss" path="res://counter.tscn" id="6_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bv1pqqhwxlwqa" path="res://trashcan.tscn" id="7_kek77"]
 [ext_resource type="AudioStream" uid="uid://du6tu30sahsyd" path="res://sounds/gametheme.ogg" id="8_5vw27"]
-[ext_resource type="Script" uid="uid://balepode0duec" path="res://trashcan.gd" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://de4ixq1jeo3nm" path="res://assembly_station.tscn" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://b7kfiukus0wcp" path="res://texture_progress_bar.gd" id="9_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dh86jxsv2kwli" path="res://fridge.tscn" id="9_kek77"]
-[ext_resource type="Texture2D" uid="uid://b77unm3lkdlls" path="res://images/kuka.png" id="10_efxa6"]
+[ext_resource type="PackedScene" uid="uid://m4axdvjxalju" path="res://roni_meki.tscn" id="10_4c57u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("5_lquwl")
@@ -79,11 +81,20 @@ texture = ExtResource("5_lquwl")
 [sub_resource type="TileSet" id="TileSet_272bh"]
 sources/0 = SubResource("TileSetAtlasSource_7mycd")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
-size = Vector2(61, 82)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kek77"]
+normal = Vector2(0, 1)
+distance = -21.927597
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycdy4"]
-size = Vector2(72, 22)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4c57u"]
+normal = Vector2(1, 0)
+distance = 12.534887
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_efxa6"]
+distance = -393.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dg77c"]
+normal = Vector2(-0.9999331, 0.01155992)
+distance = -185.04088
 
 [node name="main" type="Node2D"]
 position = Vector2(1, 0)
@@ -131,23 +142,40 @@ volume_db = -25.0
 autoplay = true
 parameters/looping = true
 
-[node name="Trashcan" type="StaticBody2D" parent="."]
-position = Vector2(876, 69)
-script = ExtResource("9_4c57u")
+[node name="Trashcan" parent="." instance=ExtResource("7_kek77")]
+position = Vector2(920, 69)
 
-[node name="Sprite2D" type="Sprite2D" parent="Trashcan"]
-scale = Vector2(3, 3)
-texture = ExtResource("10_efxa6")
+[node name="CookingTimer" type="Node2D" parent="."]
+position = Vector2(489, 9)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trashcan"]
-position = Vector2(2.5, 5)
-shape = SubResource("RectangleShape2D_dg77c")
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CookingTimer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_efxa6")
 
-[node name="Area2D" type="Area2D" parent="Trashcan"]
+[node name="Label" type="Label" parent="CookingTimer"]
+offset_right = 40.0
+offset_bottom = 23.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trashcan/Area2D"]
-position = Vector2(3, 54)
-shape = SubResource("RectangleShape2D_ycdy4")
+[node name="AssemblyStation" parent="." instance=ExtResource("9_4c57u")]
 
-[connection signal="body_entered" from="Trashcan/Area2D" to="Trashcan" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Trashcan/Area2D" to="Trashcan" method="_on_area_2d_body_exited"]
+[node name="WorldBorder" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(90, 21)
+shape = SubResource("WorldBoundaryShape2D_kek77")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(-14, 39)
+shape = SubResource("WorldBoundaryShape2D_4c57u")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(86, 248)
+shape = SubResource("WorldBoundaryShape2D_efxa6")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(1012, 157)
+shape = SubResource("WorldBoundaryShape2D_dg77c")
+
+[node name="RoniMeki" parent="." instance=ExtResource("10_4c57u")]
+position = Vector2(1071, 426)

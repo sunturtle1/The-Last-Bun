@@ -12,7 +12,7 @@ func _on_paradise_button_pressed() -> void:
 func _on_salad_button_pressed() -> void:
 	print("Salad felvéve")
 	if player.CurrentPlayerItem == "":
-		player.CurrentPlayerItem = "Salad"
+		player.CurrentPlayerItem = "Lettuce"
 		player.update_item_display()
 
 func _on_onion_button_pressed() -> void:

@@ -31,7 +31,7 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 2.11,
+"duration": 3.01,
 "texture": ExtResource("5_sweqy")
 }, {
 "duration": 1.0,
@@ -56,6 +56,7 @@ position = Vector2(576.00006, 292)
 scale = Vector2(0.24, 0.24)
 sprite_frames = SubResource("SpriteFrames_h2yge")
 animation = &"placing"
+frame_progress = 0.23414487
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(580.5, 261)

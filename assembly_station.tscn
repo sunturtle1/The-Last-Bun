@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://de4ixq1jeo3nm"]
+
+[ext_resource type="Script" uid="uid://bjhvkwrlgkusn" path="res://assembly_station.gd" id="1_6gdu3"]
+[ext_resource type="Texture2D" uid="uid://c6w6qq0hc1ouf" path="res://images/assemblystation.png" id="2_r4ouk"]
+[ext_resource type="Texture2D" uid="uid://dfmxccycuqw6p" path="res://images/bucialja.png" id="3_r4ouk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4dm7"]
+size = Vector2(96, 98.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdu3"]
+size = Vector2(95, 34)
+
+[node name="AssemblyStation" type="StaticBody2D"]
+position = Vector2(2, -1)
+script = ExtResource("1_6gdu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(705, 75)
+scale = Vector2(3, 3)
+texture = ExtResource("2_r4ouk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(706, 74)
+shape = SubResource("RectangleShape2D_o4dm7")
+
+[node name="itemroot" type="Marker2D" parent="."]
+position = Vector2(707, 54)
+
+[node name="itemsprite" type="Sprite2D" parent="itemroot"]
+texture = ExtResource("3_r4ouk")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(706.5, 135)
+shape = SubResource("RectangleShape2D_6gdu3")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
